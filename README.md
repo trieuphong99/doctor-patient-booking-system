@@ -99,3 +99,7 @@ API Gateway: https://ibw6b7jqh1.execute-api.ap-southeast-1.amazonaws.com/
       success: true
     }
     ```
+
+# Recommendation
+
+We can make some new update in the future by adding new key such as **userId**, **doctorId** and **duration** (examine duration of a booking slot) which help enhancing the application.
