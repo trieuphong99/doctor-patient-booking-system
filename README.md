@@ -18,13 +18,14 @@ API Gateway: https://ibw6b7jqh1.execute-api.ap-southeast-1.amazonaws.com/
     ```{
       bookingDate: "2024-06-29",
       bookingSlot: "13:00"
-    }```
+    }
+    ```
 
     response:
     ```{
       success: true
-    }```
-
+    }
+    ```
 2.  Get all booking: **GET /booking/**
 
     response:
