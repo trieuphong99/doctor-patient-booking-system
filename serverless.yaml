@@ -1,0 +1,48 @@
+service: doctor-patient-booking-system
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-jetpack
+  - serverless-dynamodb-local
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ${opt:region, 'ap-southeast-1'}
+  stage: ${opt:stage, 'dev'}
+  timeout: 26
+  apiGateway:
+    shouldStartNameWithService: true
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:*"
+        - "s3:*"
+        - "dynamodb:*"
+      Resource: "*"
+
+custom:
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: false
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - httpApi:
+          method: ANY
+          path: /booking/{proxy+}
+resources:
+  - ${file(src/database/dynamodb.yml)}

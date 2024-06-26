@@ -1,0 +1,26 @@
+Resources:
+  Bookings:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    Properties:
+      TableName: ${self:provider.stage}-booking-table
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: bookingDate
+          AttributeType: S
+        - AttributeName: bookingSlot
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: bookingGlobalIndex
+          KeySchema:
+            - AttributeName: bookingDate
+              KeyType: HASH
+            - AttributeName: bookingSlot
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
