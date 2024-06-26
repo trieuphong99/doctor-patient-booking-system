@@ -5,7 +5,6 @@ useDotenv: true
 plugins:
   - serverless-offline
   - serverless-jetpack
-  - serverless-dynamodb-local
 
 package:
   individually: true
@@ -25,17 +24,6 @@ provider:
         - "s3:*"
         - "dynamodb:*"
       Resource: "*"
-
-custom:
-  dynamodb:
-    stages:
-      - ${self:provider.stage}
-    start:
-      docker: true
-      port: 8000
-      inMemory: true
-      migrate: true
-      seed: false
 
 functions:
   main:
